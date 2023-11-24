@@ -1,23 +1,21 @@
 
-import htmlTablePage from '../pageObjects/htmlTablePage'
+import flipkartHomePage from '../pageObjects/htmlTablePage'
+import jsonTestData from '../fixtures/testData.json'
 import { before } from "mocha"
 
-import jsonTestData from '../fixtures/testData.json'
-// stringify the json data because cypress accepts only strings and numbers for type command
-var testData = JSON.stringify(jsonTestData.testData);
-var applicationUrl = Cypress.env('baseUrl')
-var noOfRowsBeforeRefreshTable = 3
+var flipkartApplicationUrl = Cypress.env('flipKart_Url')
 
-describe('Login and Add Data to Dynamic Table', () => {
+describe('Login to flipkart and verify the searched item with item in the cart', () => {
   before(() => {
-    cy.loginMethod(applicationUrl);
+    cy.loginToFlipkart(flipkartApplicationUrl);
   })
-  it('user should log in, insert test data, and verify added data', { tags: ["@test"] }, () => {
-    htmlTablePage.clickOnTableDataButton();
-    htmlTablePage.enterTestDataIntoInputTextbox(testData);
-    htmlTablePage.verifyCountOfDynamicTableRows(noOfRowsBeforeRefreshTable)
-    htmlTablePage.clickOnRefreshTableButton()
-    htmlTablePage.verifyCountOfDynamicTableRows(parseInt(jsonTestData.testData.length) + 1)
-    htmlTablePage.verifyTableDataWithTestData(jsonTestData.testData)
+
+
+  it('login to flipkart and search for iphone and verify searched item with item in the cart',()=>{
+    flipkartHomePage.clickOnCrossIconOfFlipkartPopup();
+    flipkartHomePage.verifyTitleOfFlipkart(jsonTestData.testData.title)
+    flipkartHomePage.enterTheTextInSearchBar(jsonTestData.testData.searchItem);
+    flipkartHomePage.addSearchedItemToCartANdVerifySearchedAndCartItems()
   })
+
 })

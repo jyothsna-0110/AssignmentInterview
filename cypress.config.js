@@ -2,10 +2,10 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
 
-  viewportWidth: 950,
-  viewportHeight: 550,
+  viewportWidth: 1920,
+  viewportHeight: 1080,
   env: {
-    baseUrl: "https://testpages.herokuapp.com/styled/tag/dynamic-table.html",
+    flipKart_Url: "https://www.flipkart.com"
   },
 
 
